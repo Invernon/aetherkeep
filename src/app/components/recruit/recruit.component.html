@@ -1,0 +1,42 @@
+<div class="container">
+
+  <hr>
+  <form [formGroup]="myForm" [hidden]="success" (ngSubmit)="submitHandler()">
+
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-error *ngIf="email.invalid && email.touched">
+      Please, enter a valid email. 
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Main ability" formControlName="main_ability">
+      <mat-option value="Frontend">Frontend Developer </mat-option>
+      <mat-option value="Backend">Backend Developer</mat-option>
+      <mat-option value="WebDesign">Web Design</mat-option>
+      <mat-option value="Integration">System Integration</mat-option>
+      <mat-option value="DataBases">Data Bases</mat-option>
+    </mat-select>
+    <mat-hint align="start"> Select your best ability </mat-hint>
+  </mat-form-field>
+
+  <div class="row">
+    <div class="col text-center">
+      <button mat-raised-button [disabled]="myForm.invalid" color="primary"> Send </button> 
+    </div>
+  </div>
+
+  </form>
+
+  <div *ngIf="success" class="row">
+    <div class="col-12 text-center notification is-success">
+      <h2> Your message has been correctly submited! <span style="font-size: 4px;" > Manco </span> </h2>
+    </div>
+  </div>
+</div>
+
