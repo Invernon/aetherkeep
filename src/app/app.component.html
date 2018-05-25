@@ -1,4 +1,4 @@
 <app-toolbar></app-toolbar>
-<div class="main-container" flex layout="row" layout-align="center center" style="background: url('assets/images/patter.jpg');background-repeat: repeat;">
+<div class="main-container" [ngClass]="drawBackground ? 'main-container-background' : '' " flex layout="row" layout-align="center center">
     <router-outlet></router-outlet>
 </div>

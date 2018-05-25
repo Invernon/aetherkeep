@@ -1,4 +1,15 @@
+@import "../assets/sass/general";
+
 .main-container{
-    background: whitesmoke;
     min-height:90vh;
+    background-color: $aether-white;
+    padding-top:2.5vh;
+    padding-bottom: 2.5vh;
+}
+
+.main-container-background{
+    background-color: #4e4e4e;
+    background-image: url("../assets/images/pattern3.png");
+    background-repeat: repeat;
+    background-size: contain;
 }
