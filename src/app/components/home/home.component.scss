@@ -1,1 +1,79 @@
 @import "../../../assets/sass/general";
+
+.img-banner{
+    height: 90vh;
+}
+
+.aether-home-height{
+    min-height:90vh;
+}
+
+.aether-newsletter{
+    min-height: 80vh;
+    background: white;
+    // border: 0.2pc solid #575758;
+    padding:0.5pc;
+    animation: sizeUp 5s infinite;
+    // border-radius: 1vw;
+    // box-shadow: 0px 0px 4px whitesmoke;
+}
+
+.aether-newsletter-header{
+    font-family: "Adam";
+    font-weight: bold;
+    height: 10vh;
+    line-height: 10vh;
+    background: #6a6a6b;
+    color: white;
+    font-size: 2em;
+}
+
+.aether-newsletter-separator{
+    color:white;
+    background: #575758;
+    height: 5vh;
+    line-height: 5vh;
+}
+
+.btn-aether{
+    background: #6a6a6b;
+    cursor: pointer;
+    color:white;
+    font-weight: bold;
+}
+
+.btn-aether:hover{
+    background: #575758;
+}
+
+@keyframes sizeUp {
+    0% {
+      transform: scale(1)
+    }
+    50% {
+        transform: scale(1.05)
+    }
+    100% {
+        transform: scale(1)
+    }
+  }
+  
+.aether-newsletter-image{
+    width:100%
+}
+
+@media ( max-width:767px ){
+    .aether-newsletter-image{
+        width:40%
+    }
+    .aether-newsletter-header{
+        font-size: 1em;
+    }
+}
+
+@media ( max-width:479px ){
+    .main-logo{
+        height:50vh;
+    }
+}
+

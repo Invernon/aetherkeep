@@ -1,2 +1,10 @@
+$Adam-font-path: "./assets/font/Adam.otf" ;
+
+@font-face {
+    font-family: 'Adam';
+        src:url($Adam-font-path) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body { margin: 0; }
