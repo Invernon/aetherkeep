@@ -20,12 +20,12 @@ export class AppComponent {
   }
 
   modifyHeader(location) {
-    console.log(location.url)
-    if (location.url.split('/')[1] != "home" )
+    console.log(location.url.split('/')[1])
+    if (location.url.split('/')[1] == "home" || location.url.split('/')[1] == ""  )
     {
-        this.drawBackground = false;
-    } else {
         this.drawBackground = true;
+    } else {
+        this.drawBackground = false;
       }
    }
 }
