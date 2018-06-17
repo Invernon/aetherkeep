@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 
 
+
 /**
  * Material Module
  */
@@ -55,6 +56,7 @@ import {
   MatTreeModule,
 } from '@angular/material';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     HomeComponent,
     RecruitComponent,
     LoginComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
