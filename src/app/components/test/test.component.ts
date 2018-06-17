@@ -3,6 +3,7 @@ import { FormBuilder , FormGroup, Validators } from '@angular/forms';
 import { AngularFirestore, AngularFirestoreCollection , AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 
+
 import { tap, first } from 'rxjs/operators';
 import { Time } from '@angular/common';
 
@@ -19,6 +20,7 @@ interface Candidate{
   start_time?: Date;
   finish_time?: Date;
 }
+
 
 @Component({
   selector: 'app-test',
@@ -44,6 +46,15 @@ export class TestComponent implements OnInit {
     //Form State
     loading = false;
     success = false;
+
+  //Get information from the DB
+  getActiveMembers(email):Observable <Candidate[]>{
+    this.candidatesCollection = this.afs.collection<Candidate>('/test_information',
+     ref => {
+      return ref.where('email', '==', email );
+    });
+    return this.candidatesCollection.valueChanges();
+  }
   
 
   constructor(  private fb: FormBuilder , private afs: AngularFirestore ) { }
@@ -75,42 +86,70 @@ export class TestComponent implements OnInit {
   }
 
   getCanditate(){
-    let email = this.emailConfirmation.value.email
+    let email = this.emailConfirmation.value.email;
     // let person = await this.checkActiveUser(email)
     // this.checkActiveUser(email).then( data => {
     //   console.log(data)
     // })
 
-    this.checkActiveUser(email)
     
-    .then( data =>{
-      console.log(data)
-        this.actualCandidate = data;
+    this.getActiveMembers(email).subscribe( data => {
+      console.log(data) 
+      if(data.length > 0){
+        console.log("ADS" , data)
+        this.actualCandidate = data[0];
         this.validated=true;
         this.ready=true;
+      }
+      else{
+        console.log("ADSASDAS")
+        this.userCollection = this.afs.collection('recruit_members', ref => {
+          return ref.where('email', '==', email );
+        });
+    
+        this.user = this.userCollection.valueChanges();
+        this.user.subscribe(data => {
+          if(data.length > 0){
+            this.actualCandidate = data[0];
+            this.validated = true 
+          }
+          else{
+            alert("No existe una solicitud para ese email");
+          }
+        })
+      }
     })
-    .catch(function error(err){
-        console.log(err)
-    })  
 
-    //PROBLEMITA ASYNCRONO... HELP
-    if(this.newU){
-      console.log("Ad")
-      this.userCollection = this.afs.collection('recruit_members', ref => {
-        return ref.where('email', '==', email );
-      });
+    // this.checkActiveUser(email)
+    
+    // .then( data =>{
+    //   console.log(data)
+    //     this.actualCandidate = data;
+    //     this.validated=true;
+    //     this.ready=true;
+    // })
+    // .catch(function error(err){
+    //     console.log(err)
+    // })  
+
+    // //PROBLEMITA ASYNCRONO... HELP
+    // if(this.newU){
+    //   console.log("Ad")
+    //   this.userCollection = this.afs.collection('recruit_members', ref => {
+    //     return ref.where('email', '==', email );
+    //   });
   
-      this.user = this.userCollection.valueChanges();
-      this.user.subscribe(data => {
-        if(data.length > 0){
-          this.actualCandidate = data[0];
-          this.validated = true 
-        }
-        else{
-          alert("No existe una solicitud para ese email");
-        }
-      })
-    }
+    //   this.user = this.userCollection.valueChanges();
+    //   this.user.subscribe(data => {
+    //     if(data.length > 0){
+    //       this.actualCandidate = data[0];
+    //       this.validated = true 
+    //     }
+    //     else{
+    //       alert("No existe una solicitud para ese email");
+    //     }
+    //   })
+    // }
 
   }
   

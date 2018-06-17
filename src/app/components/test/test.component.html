@@ -21,7 +21,6 @@
     <div class="col-12 col-md-10 offset-md-1 text-center aether-test" *ngIf="validated">
       <h2>
         {{ actualCandidate.name }}
-        {{ actualCandidate.email }}
       </h2>
       <ng-container *ngIf="!ready">
         <h5>
@@ -49,12 +48,12 @@
       <ng-container *ngIf="ready">
         <div class="row">
           <div class="col-12 col-md-6 text-left">
-            <h5>
-              Tiempo de inicio: {{actualCandidate.start_time | date:'shortTime' }}
-            </h5>
-            <h5>
-              Tiempo máximo de entrega: {{actualCandidate.finish_time | date:'shortTime' }}
-            </h5>
+            <h6>
+              Tiempo de inicio: {{actualCandidate.start_time | date }} {{actualCandidate.start_time | date:'shortTime' }}
+            </h6>
+            <h6>
+              Tiempo máximo de entrega: {{actualCandidate.finish_time  | date }} {{actualCandidate.finish_time | date:'shortTime' }}
+            </h6>
           </div>
           <div class="col-12 col-md-6 text-right">
             <h5>
