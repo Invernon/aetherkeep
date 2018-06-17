@@ -39,6 +39,7 @@ export class TestComponent implements OnInit {
 
   validated : boolean = false;
   ready: boolean = false;
+  newU:boolean = false;
 
     //Form State
     loading = false;
@@ -75,7 +76,6 @@ export class TestComponent implements OnInit {
 
   getCanditate(){
     let email = this.emailConfirmation.value.email
-
     // let person = await this.checkActiveUser(email)
     // this.checkActiveUser(email).then( data => {
     //   console.log(data)
@@ -90,10 +90,11 @@ export class TestComponent implements OnInit {
         this.ready=true;
     })
     .catch(function error(err){
-  
-    })
+        console.log(err)
+    })  
 
-    if(this.actualCandidate){
+    //PROBLEMITA ASYNCRONO... HELP
+    if(this.newU){
       console.log("Ad")
       this.userCollection = this.afs.collection('recruit_members', ref => {
         return ref.where('email', '==', email );
@@ -110,7 +111,6 @@ export class TestComponent implements OnInit {
         }
       })
     }
-    //POR QUE ME DA UNDEFINED????
 
   }
   
@@ -131,6 +131,7 @@ export class TestComponent implements OnInit {
           resolve (activeUser)
         }
         else{
+          this.newU = true;
           reject ('Null')
         }
       })
