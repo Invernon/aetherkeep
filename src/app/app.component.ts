@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'Aether Solution';
   public drawBackground: boolean;
   constructor(private router: Router){
-
+    console.log("Marico el que abra el inspector de elementos.")
     router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
         this.modifyHeader(event)

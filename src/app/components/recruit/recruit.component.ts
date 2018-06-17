@@ -23,6 +23,7 @@ export class RecruitComponent implements OnInit {
       name : ['', [Validators.required, Validators.minLength(3)]],
       email : ['', [Validators.required, Validators.email]],
       main_ability : ['', [Validators.required]],
+      last_subject : ['', [Validators.required]],
       // agree: [false, [Validators.requiredTrue]]
     })
   }
