@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection , AngularFirestoreDocument
 import { Observable } from 'rxjs';
 
 import { tap, first } from 'rxjs/operators';
+import { Time } from '@angular/common';
 
 interface User{
   email?: string;
@@ -13,10 +14,10 @@ interface User{
 }
 
 interface Candidate{
-  name: string;
-  email:string;
-  start_time: Date;
-  finish_time: Date;
+  name?: string;
+  email?:string;
+  start_time?: Date;
+  finish_time?: Date;
 }
 
 @Component({
@@ -31,7 +32,7 @@ export class TestComponent implements OnInit {
 
   candidatesCollection: AngularFirestoreCollection<Candidate>
   candidate: Observable<Candidate[]>
-  actualCandidate : any;
+  actualCandidate : any
   
   myForm: FormGroup;
   emailConfirmation: FormGroup;
@@ -80,32 +81,35 @@ export class TestComponent implements OnInit {
     //   console.log(data)
     // })
 
-    this.checkActiveUser(email).then( data =>{
-      
-      if( data ){
-        console.log("SE pe")
+    this.checkActiveUser(email)
+    
+    .then( data =>{
+      console.log(data)
+        this.actualCandidate = data;
         this.validated=true;
         this.ready=true;
-      }
-      else{
-        
-        this.userCollection = this.afs.collection('recruit_members', ref => {
-          return ref.where('email', '==', email );
-        });
-    
-        this.user = this.userCollection.valueChanges();
-        this.user.subscribe(data => {
-          if(data.length > 0){
-            this.actualCandidate = data[0];
-            this.validated = true 
-          }
-          else{
-            alert("No existe una solicitud para ese email");
-          }
-        })
+    })
+    .catch(function error(err){
   
-      }
-    });
+    })
+
+    if(this.actualCandidate){
+      console.log("Ad")
+      this.userCollection = this.afs.collection('recruit_members', ref => {
+        return ref.where('email', '==', email );
+      });
+  
+      this.user = this.userCollection.valueChanges();
+      this.user.subscribe(data => {
+        if(data.length > 0){
+          this.actualCandidate = data[0];
+          this.validated = true 
+        }
+        else{
+          alert("No existe una solicitud para ese email");
+        }
+      })
+    }
     //POR QUE ME DA UNDEFINED????
 
   }
