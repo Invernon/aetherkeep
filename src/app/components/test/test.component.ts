@@ -21,7 +21,6 @@ interface Candidate{
   finish_time?: Date;
 }
 
-
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
@@ -43,9 +42,9 @@ export class TestComponent implements OnInit {
   ready: boolean = false;
   newU:boolean = false;
 
-    //Form State
-    loading = false;
-    success = false;
+  //Form State
+  loading = false;
+  success = false;
 
   //Get information from the DB
   getActiveMembers(email):Observable <Candidate[]>{
@@ -87,22 +86,14 @@ export class TestComponent implements OnInit {
 
   getCanditate(){
     let email = this.emailConfirmation.value.email;
-    // let person = await this.checkActiveUser(email)
-    // this.checkActiveUser(email).then( data => {
-    //   console.log(data)
-    // })
-
-    
+   
     this.getActiveMembers(email).subscribe( data => {
-      console.log(data) 
       if(data.length > 0){
-        console.log("ADS" , data)
         this.actualCandidate = data[0];
         this.validated=true;
         this.ready=true;
       }
       else{
-        console.log("ADSASDAS")
         this.userCollection = this.afs.collection('recruit_members', ref => {
           return ref.where('email', '==', email );
         });
@@ -120,66 +111,8 @@ export class TestComponent implements OnInit {
       }
     })
 
-    // this.checkActiveUser(email)
-    
-    // .then( data =>{
-    //   console.log(data)
-    //     this.actualCandidate = data;
-    //     this.validated=true;
-    //     this.ready=true;
-    // })
-    // .catch(function error(err){
-    //     console.log(err)
-    // })  
-
-    // //PROBLEMITA ASYNCRONO... HELP
-    // if(this.newU){
-    //   console.log("Ad")
-    //   this.userCollection = this.afs.collection('recruit_members', ref => {
-    //     return ref.where('email', '==', email );
-    //   });
-  
-    //   this.user = this.userCollection.valueChanges();
-    //   this.user.subscribe(data => {
-    //     if(data.length > 0){
-    //       this.actualCandidate = data[0];
-    //       this.validated = true 
-    //     }
-    //     else{
-    //       alert("No existe una solicitud para ese email");
-    //     }
-    //   })
-    // }
-
   }
   
-  checkActiveUser( email ){
-    let activeUser: any = false;
-
-    return new Promise( (resolve,reject) => {
-      
-      this.candidatesCollection = this.afs.collection('test_information', ref => {
-        return ref.where('email', '==', email );
-      });
-  
-      this.candidate = this.candidatesCollection.valueChanges();
-      this.candidate.subscribe(data => {
-        console.log(data)
-        if(data.length > 0){
-          activeUser = data[0]; 
-          resolve (activeUser)
-        }
-        else{
-          this.newU = true;
-          reject ('Null')
-        }
-      })
-      
-      
-    })
-
-  }
-
   get email(){
     return this.emailConfirmation.get('email');
   }
